@@ -1,0 +1,15 @@
+{
+  "name": "mass-messanger",
+  "description": "Mass Email Sending And Whats App Messaging",
+  "author": "Uddhav Savani",
+  "main": "dist/js/adminlte.min.js",
+  "scripts": {},
+  "style": "dist/css/adminlte.css",
+  "sass": "build/scss/adminlte.scss",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^4.6.0",
+    "icheck-bootstrap": "^3.0.1",
+    "jquery": "^3.6.0"
+  }
+}
