@@ -17,6 +17,11 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 
@@ -33,6 +38,10 @@
     /* Firefox */
     input[type=number] {
       -moz-appearance: textfield;
+    }
+
+    tr {
+      text-align: center;
     }
   </style>
 </head>
@@ -79,13 +88,15 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-md-2">
+                        <input type="hidden" id='contact-id'>
                         <label for="first-name-txt">First Name</label>
                         <input type="text" class="form-control is-disable" id="first-name-txt" placeholder="First Name">
                         <small><label for="first-name-txt" id="first-name-err-msg"></label></small>
                       </div>
                       <div class="form-group col-md-2">
                         <label for="middle-name-txt">Middle Name</label>
-                        <input type="text" class="form-control is-disable" id="middle-name-txt" placeholder="Middle Name">
+                        <input type="text" class="form-control is-disable" id="middle-name-txt"
+                          placeholder="Middle Name">
                         <small><label for="middle-name-txt" id="middle-name-err-msg"></label></small>
                       </div>
                       <div class="form-group col-md-2">
@@ -109,8 +120,10 @@
 
                   <div class="card-footer">
                     <div align="right">
-                      <button type="submit" id="add-contact-btn" class="btn btn-primary mr-1 is-disable">Add Contact</button>
-                      <button type="reset" class="btn btn-primary is-disable">Reset</button>
+                      <button type="submit" id="add-contact-btn" class="btn btn-primary mr-1 is-disable">AddContact</button>
+                      <button id="update-btn" class="btn btn-primary mr-1" disabled>Update</button>
+                      <input type="reset" name="" class="btn btn-primary" id="reset-btn" value="reset">
+                      <!-- <button onclick="resetFor" class="btn btn-primary is-disable">Reset</button> -->
                     </div>
                   </div>
                 </form>
@@ -118,48 +131,104 @@
             </div>
           </div>
         </div>
-      </section>
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Contacts</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <table id="contact-table" class="table table-bordered table-striped table-hover table-sm">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First<br>Name</th>
+                  <th>Middle<br>Name</th>
+                  <th>Last<br>Name</th>
+                  <th>Email</th>
+                  <th>Mobile<br>No</th>
+                  <th width="10%">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
     </div>
-    <!-- /.content-wrapper -->
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 
-    <!-- Main Footer -->
-    <?php include('footer.php'); ?>
+  <!-- Main Footer -->
+  <?php include('footer.php'); ?>
 
   </div>
   <!-- ./wrapper -->
 
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
-  <script src="../plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
+  <script src="../plugins/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
+
   <!-- AdminLTE App -->
   <script src="../dist/js/adminlte.js"></script>
 
+  <!-- DataTables  & Plugins -->
+  <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../plugins/jszip/jszip.min.js"></script>
+  <script src="../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
   <script src="../plugins/toastr/toastr.min.js"></script>
 
-  <!-- PAGE PLUGINS -->
-  <!-- jQuery Mapael -->
-  <!-- <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="plugins/raphael/raphael.min.js"></script>
-<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-ChartJS
-<script src="plugins/chart.js/Chart.min.js"></script> -->
+
 
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="../dist/js/pages/dashboard2.js"></script>
 
+
   <script>
+
+    $(document).ready(function () {
+      $("#contact-table").DataTable({
+        "autoWidth": false,
+        "paging": true,
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "info": true,
+        "ajax": {
+          url: "./api/contacts/fetchcontact.php",
+          type: "POST"
+        },
+        "columnDefs": [
+          {
+            "targets": [-1],
+            "orderable": false,
+          }
+        ]
+      });
+    });
+
     $("#add-contact-btn").on('click', function (e) {
       e.preventDefault();
 
@@ -178,6 +247,7 @@ ChartJS
           dataType: "json",
           success: function (res) {
             if (res.status == 1) {
+              $("#contact-table").DataTable().ajax.reload();
               toastr.success("Contact : " + $("#first-name-txt").val() + " " + $("#last-name-txt").val() + " Added Succesfully");
               resetAddContactForm();
               $(".is-disable").prop('disabled', false);
@@ -207,11 +277,20 @@ ChartJS
       $("#mobile-no-txt").removeClass("border-danger");
       $("#email-txt").removeClass("border-success");
       $("#email-txt").removeClass("border-danger");
+      $("#contact-id").val(null);
+      $("#first-name-err-msg").html("");
+      $("#middle-name-err-msg").html("");
+      $("#last-name-err-msg").html("");
+      $("#mobile-no-err-msg").html("");
+      $("#email-err-msg").html("");
+      $("#add-contact-btn").prop("disabled", false);
+      $("#update-btn").prop("disabled", true);
     }
 
     $("#first-name-txt").on('change', validateFirstNameMaster);
 
     function validateFirstNameMaster() {
+      console.log("First Name M");
       var firstName = $("#first-name-txt").val();
       firstName = firstName.trim().replace(/\s+/g, " ").replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
       $("#first-name-txt").val(firstName);
@@ -231,6 +310,7 @@ ChartJS
       if (errMsg) {
         return false;
       }
+      console.log("First Name M");
       return true;
     }
 
@@ -396,6 +476,114 @@ ChartJS
       return errMsg;
     }
 
+    $("tbody").on('click', '.update-contact', function () {
+      resetAddContactForm();
+      var id = $(this).attr('contact-id');
+      $("#add-contact-btn").attr('disabled', true);
+      $("#update-btn").attr('disabled', false);
+      
+
+      $.ajax({
+        url: "./api/contacts/getcontactdata.php?id="+id,
+        method: "get",
+        data: { id: id },
+        dataType: "json",
+        success: function (res) {
+          $("#contact-id").val(id);
+          $("#first-name-txt").val(res.firstname);
+          $("#middle-name-txt").val(res.middlename);
+          $("#last-name-txt").val(res.lastname);
+          $("#email-txt").val(res.email);
+          $("#mobile-no-txt").val(res.contactno);
+        },
+        error: function (err) {
+          console.log("Err In ", err);
+        }
+      });
+    });
+
+    $("#update-btn").on('click', function (e) {
+        e.preventDefault();
+        
+        var id = $("#contact-id").val();
+
+        if(id == null){
+          toastr.error("Something Went Worng, Please refresh the page");
+        }
+
+        if (validateFirstNameMaster() && validateMiddleNameMaster() && validateLastNameMaster() && validateEmailMaster() && validateMobileNoMaster()) {
+
+          $(".is-disable").prop('disabled', true);
+          $.ajax({
+            method: "POST",
+            url: "./api/contacts/updatecontact.php",
+            data: {
+              id: id,
+              firstname: $("#first-name-txt").val(),
+              middlename: $("#middle-name-txt").val(),
+              lastname: $("#last-name-txt").val(),
+              email: $("#email-txt").val(),
+              contactno: $("#mobile-no-txt").val()
+            },
+            dataType: "json",
+            success: function (res) {
+              if (res.status == 1) {
+                $("#contact-table").DataTable().ajax.reload();
+                toastr.success("Contact Updated Successfully");
+                resetAddContactForm();
+                $(".is-disable").prop('disabled', false);
+                $("#update-btn").prop("disabled", true);
+                
+              }
+              else {
+                toastr.error("Something Went Worng");
+                $(".is-disable").prop('disabled', false);
+                $("#add-contact-btn").prop("disabled", true);
+              }
+            },
+            error: function (err) {
+              toastr.error("Something Went Worng");
+              console.error("Err In ./api/contacts/addcontact.php");
+              $(".is-disable").prop('disabled', false);
+              $("#add-contact-btn").prop("disabled", true);
+            }
+          });
+        }
+        else {
+          toastr.error("Something Went Worng, Please refresh the page");
+        }
+      });
+
+    $("#reset-btn").on('click', resetForm);
+    
+    $("tbody").on("click", '.delete-contact', function() {
+      var id = $(this).attr("contact-id");
+      
+      $.ajax({
+        url: "./api/contacts/deletecontact.php",
+        type: "POST",
+        data: {id: id},
+        dataType: "json",
+        success: function(res){
+          if(res.status == 1){
+            $("#contact-table").DataTable().ajax.reload();
+            toastr.success("Contact deleted successfully");
+          }
+          else{
+            toastr.error("Something Went Worng, Please try again");
+          }
+        },
+        error: function(err){
+          console.log("Err in ./api/contacts/deletecontact.php");
+          toastr.error("Something Went Worng, Please refresh the page");
+        }
+        
+      })
+    });
+
+    function resetForm(){
+      resetAddContactForm();
+    }
   </script>
 </body>
 
