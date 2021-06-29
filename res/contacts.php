@@ -76,7 +76,7 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <div class="row">
+            <div class="row">
             <div class="col-md-12">
               <div class="card card-primary">
                 <div class="card-header">
@@ -554,7 +554,8 @@
         }
       });
 
-    $("#reset-btn").on('click', resetForm);
+    
+      $("#reset-btn").on('click', resetForm);
     
     $("tbody").on("click", '.delete-contact', function() {
       var id = $(this).attr("contact-id");

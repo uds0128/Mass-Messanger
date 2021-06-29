@@ -129,9 +129,9 @@
 
 
 
-<script src="./plugins/jquery/jquery.min.js"></script>
+<script src="./plugins/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
 
-<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="./plugins/"></script> -->
 
 <script src="./dist/js/adminlte.min.js"></script>
 

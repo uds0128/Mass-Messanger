@@ -74,3 +74,11 @@ CREATE TABLE contacts
     created_at datetime DEFAULT CURRENT_TIMESTAMP,
     updated_at datetime
 );
+
+CREATE TABLE groupsmaster 
+(
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    name varchar(50) UNIQUE,
+    description varchar(255) DEFAULT null,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP
+)

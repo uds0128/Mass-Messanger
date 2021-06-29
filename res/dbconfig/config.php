@@ -7,6 +7,7 @@
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
+    // $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
     
     // Check connection
     if ($conn->connect_error) {

@@ -52,6 +52,15 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="./groups.php" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Groups
+                <!-- <i class="fas fa-angle-left right"></i> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
