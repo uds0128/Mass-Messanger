@@ -81,4 +81,17 @@ CREATE TABLE groupsmaster
     name varchar(50) UNIQUE,
     description varchar(255) DEFAULT null,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE groupdetails
+(
+    id bigint AUTO_INCREMENT PRIMARY KEY,
+    contactid bigint,
+    groupid bigint,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (contactid) REFERENCES contacts(id),
+    FOREIGN KEY (groupid) REFERENCES groupsmaster(id)
 )
+
+CREATE VIEW contactgroup as SELECT groupdetails.id, groupdetails.groupid, groupdetails.contactid, contacts.firstname, contacts.middlename, contacts.lastname, contacts.email, contacts.contactno;

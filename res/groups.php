@@ -286,6 +286,7 @@
                     success: function (res) {
                         if (res['status'] == 1) {
                             toastr.success("Group Created Successfully");
+                            $("#all-groups-table").DataTable().ajax.reload();
                         }
                         else {
                             if (res['errcode'] == 1) {
