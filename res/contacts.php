@@ -455,7 +455,7 @@
     }
 
     function validateMobileNo(mobileNo) {
-      var mailformat = /^[789]\d{9}$/;
+      var mailformat = /^[6789]\d{9}$/;
       var errMsg = "";
 
       if (mobileNo.length == 0) {
