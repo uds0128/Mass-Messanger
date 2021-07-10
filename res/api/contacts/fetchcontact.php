@@ -1,7 +1,23 @@
 <?php
     include('../../dbconfig/config.php');
 
-    $total_contact = "SELECT count(0) as total_contacts from contacts";
+    $groupid = $_POST['groupid'];
+
+    if($groupid == 0){
+        $total_contact = "SELECT count(0) as total_contacts from contacts ";
+        $query = "SELECT * FROM contacts ";
+        if(isset($_POST["search"]["value"])){
+            $query .= " WHERE ";
+            $query .= " (id LIKE '%".$_POST["search"]["value"]."%' ";
+        }
+    }
+    else{
+        $total_contact = "SELECT count(0) as total_contacts from contactgroup WHERE groupid={$groupid} ";
+        $query = "SELECT contactid as id, firstname, middlename, lastname, email, contactno FROM contactgroup WHERE groupid = {$groupid} and ";
+        if(isset($_POST["search"]["value"])){
+            $query .= " (contactid LIKE '%".$_POST["search"]["value"]."%' ";
+        }
+    }
     $result_total_contact = $conn->query($total_contact);
     $result_total_contact = $result_total_contact -> fetch_assoc();
     
@@ -10,14 +26,13 @@
     $totalRecords = $result_total_contact['total_contacts'];
 
     
-    $query = "SELECT * FROM contacts ";
+    
     if(isset($_POST["search"]["value"])){
-        $query .= "WHERE id LIKE '%".$_POST["search"]["value"]."%' ";
         $query .= "OR firstname LIKE '%".$_POST["search"]["value"]."%' ";
         $query .= "OR middlename LIKE '%".$_POST["search"]["value"]."%' ";
         $query .= "OR lastname LIKE '%".$_POST["search"]["value"]."%' ";
         $query .= "OR email LIKE '%".$_POST["search"]["value"]."%' ";
-        $query .= "OR contactno LIKE '%".$_POST["search"]["value"]."%' ";
+        $query .= "OR contactno LIKE '%".$_POST["search"]["value"]."%') ";
         
     }
 
@@ -46,10 +61,7 @@
         $row_obj[] = $row["lastname"] ;
         $row_obj[] = $row["email"] ;
         $row_obj[] = $row["contactno"] ;
-        $row_obj[] = "<div style='display: flex;' >" .
-                    "<button class='btn btn-sm btn-success mr-1 update-contact' contact-id='".$row["id"]."'>Update</button>" .
-                    "<button class='btn btn-sm btn-danger delete-contact' contact-id='".$row["id"]."'>Delete</button></div>";
-
+    
         $data[] = $row_obj;
     }
 

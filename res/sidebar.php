@@ -79,6 +79,23 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="./users.php" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users
+                <!-- <i class="fas fa-angle-left right"></i> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./uploadthroughfile.php" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Upload File
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>

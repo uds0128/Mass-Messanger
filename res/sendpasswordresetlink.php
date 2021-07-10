@@ -1,6 +1,6 @@
 <?php
     require('./dbconfig/config.php');
-    require('./mailconfig/mailfunction.php');
+    require('./mailconfig/mailfunction.php'); 
 
     if(isset($_POST['email']) && !empty($_POST['email'])){
         $email = stripcslashes($_POST['email']);
@@ -16,9 +16,12 @@
             $lastname = $row['lastname'];
             $userid = $row['id'];
             $token = bin2hex(random_bytes(15));
+                $relative_path = $_SERVER["SCRIPT_NAME"];
+    $relative_path = explode("/",$relative_path);
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
             $insert_into_password_reset_tokens = "INSERT INTO resetpasswordtokens (userid, token) VALUES ($userid,'$token')";
             $result_insert_into_password_reset_tokens = $conn->query($insert_into_password_reset_tokens);
-            $mail_msg = "http://localhost/projects/massmessangerfinal/res/resetpassword.php?token=".$token;
+            $mail_msg = $protocol.$_SERVER['HTTP_HOST']."/".$relative_path[1]."/".$relative_path[2]."/resetpassword.php?token=".$token;
             
             if($result_insert_into_password_reset_tokens){
                 $conn->commit();

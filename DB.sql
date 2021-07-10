@@ -15,7 +15,7 @@
 
 
 
-CREATE TABLE usersintermidiate
+/*CREATE TABLE usersintermidiate
 (
     id bigint PRIMARY KEY AUTO_INCREMENT,
     email varchar(320) UNIQUE,
@@ -26,7 +26,7 @@ CREATE TABLE usersintermidiate
     requested_at datetime DEFAULT CURRENT_TIMESTAMP,
     verified_status boolean DEFAULT false,
     verified_at datetime DEFAULT null
-) ;
+) ;*/
 
 
 CREATE TABLE users
@@ -38,8 +38,7 @@ CREATE TABLE users
     password_hash varchar(255),
     created_at datetime DEFAULT CURRENT_TIMESTAMP,
     updated_at datetime DEFAULT null,
-    usersintermidiateid bigint UNIQUE,
-    FOREIGN KEY (usersintermidiateid) REFERENCES usersintermidiate(id)
+    is_admin boolean default false
 ) ;
 
 
@@ -90,8 +89,8 @@ CREATE TABLE groupdetails
     contactid bigint,
     groupid bigint,
     created_at datetime DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (contactid) REFERENCES contacts(id),
-    FOREIGN KEY (groupid) REFERENCES groupsmaster(id)
+    FOREIGN KEY (contactid) REFERENCES contacts(id) ON DELETE CASCADE,
+    FOREIGN KEY (groupid) REFERENCES groupsmaster(id) ON DELETE CASCADE
 )
 
 CREATE VIEW contactgroup as SELECT groupdetails.id, groupdetails.groupid, groupdetails.contactid, contacts.firstname, contacts.middlename, contacts.lastname, contacts.email, contacts.contactno;
