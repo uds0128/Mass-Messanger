@@ -57,6 +57,25 @@
         }
     }
 
+    $subject = $subjectCopy;
+    $subject = str_replace('<fname></fname>',"!-FirstName-!", $subject);
+    $subject = str_replace('<mname></mname>',"!-MiddleName-!", $subject);
+    $subject = str_replace('<lname></lname>',"!-LastName-!", $subject);
+    $subject = str_replace('<email></email>',"!-Email-!", $subject);
+    $subject = str_replace('<contactno></contactno>',"!-ContactNo-!", $subject);
+
+    $mail_body = $code;
+    $mail_body = str_replace('<fname></fname>',"!-FirstName-!", $mail_body);
+    $mail_body = str_replace('<mname></mname>',"!-MiddleName-!", $mail_body);
+    $mail_body = str_replace('<lname></lname>',"!-LastName-!", $mail_body);
+    $mail_body = str_replace('<email></email>',"!-Email-!", $mail_body);
+    $mail_body = str_replace('<contactno></contactno>',"!-ContactNo-!", $mail_body);
+    
+    $contactIds = implode(",", $successfulIds);
+
+    $insertIntoHistory = "INSERT INTO mailhistory (subject, body, contactids) VALUES ('{$subject}','{$mail_body}', '{$contactIds}')";
+    $result_insertIntoHistory = $conn->query($insertIntoHistory);
+
     $res = array(
         "status"=>1,
         "errcode"=>null,
@@ -66,6 +85,13 @@
             "errorids" => $errorIds
         )
     );
+
+    if(!$result_insertIntoHistory){
+        $res["historyStatus"] = 1;
+    }
+    else{
+        $res["historyStatus"] = 0;
+    }
 
     echo json_encode($res);
 ?>

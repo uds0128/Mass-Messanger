@@ -1,7 +1,25 @@
 <?php
-    $mail_host = 'smtp.gmail.com';
-    $mail_port = 587;
-    $mail_sender_email = 'sendersmail@gmail.com';
-    $mail_sender_password = "SendersPassword";
-    $mail_sender_name = "Mass Messanger";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "massmessanger";
+    
+    $connection = new mysqli($servername, $username, $password, $dbname);
+    $getEmailConfigData = "SELECT * from emailconfig WHERE id = 1";
+    $getEmailConfigData = $connection->query($getEmailConfigData);
+    
+    if(!$getEmailConfigData){
+        $res = array("status"=>-1, "errcode"=>-1, "errmsg"=>"Err Fetching In Email Configs");
+        die(json_encode($res));
+    }
+    $getEmailConfigData = $getEmailConfigData->fetch_assoc();
+
+    
+    $mail_host = $getEmailConfigData["host"];
+    $mail_port = $getEmailConfigData["port"];
+    $mail_sender_email = $getEmailConfigData["sendersemail"];
+    $mail_sender_password = $getEmailConfigData["senderspassword"];
+    $mail_sender_name = $getEmailConfigData["sendersname"];
+
+    $connection->close();
 ?>

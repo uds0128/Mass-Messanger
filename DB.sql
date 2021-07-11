@@ -94,3 +94,22 @@ CREATE TABLE groupdetails
 )
 
 CREATE VIEW contactgroup as SELECT groupdetails.id, groupdetails.groupid, groupdetails.contactid, contacts.firstname, contacts.middlename, contacts.lastname, contacts.email, contacts.contactno;
+
+CREATE TABLE emailconfig
+(
+    id SMALLINT PRIMARY KEY AUTO_INCREMENT,
+    host varchar(255),
+    port integer(5),
+    sendersemail varchar(255),
+    senderspassword varchar(50),
+    sendersname varchar(50)
+ );
+
+
+ CREATE TABLE mailhistory
+(
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    date date DEFAULT CURRENT_DATE,
+    subject text DEFAULT null,
+    contactids longtext
+)

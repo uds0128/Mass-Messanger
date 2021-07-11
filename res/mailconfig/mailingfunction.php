@@ -11,7 +11,7 @@ function mailfunction($fname, $mname, $lname, $email, $contactno, $subject, $mai
     $mail = new PHPMailer();
     $mail->isSMTP();
 
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
     $mail->Host = $GLOBALS['mail_host'];
 
